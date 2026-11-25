@@ -1,0 +1,102 @@
+# ==========================================================
+# .gitignore - office-report
+# ==========================================================
+# Keep committed: pyproject.toml, uv.lock, .python-version,
+#                 README.md, src/
+
+# ---- Python bytecode & caches ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ---- Virtual environments (uv / venv) ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- Packaging / build output ----
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# ---- Test, lint & type-check caches ----
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+.tox/
+.nox/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+
+# ---- Environment variables & secrets ----
+# Never commit SMTP/email credentials, API keys or tokens.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.*
+credentials.*
+*.secret
+config.local.*
+
+# ---- Source data (Excel inputs & consolidated master dataset) ----
+# Confidential revenue data: keep out of version control.
+*.xlsx
+*.xlsm
+*.xls
+*.xlsb
+*.csv
+*.parquet
+data/
+input/
+# Excel temporary lock/owner files, e.g. ~$report.xlsx
+~$*
+
+# ---- Generated outputs (reports, charts, PDFs) ----
+output/
+outputs/
+reports/
+charts/
+*.pdf
+*.svg
+
+# ---- Logs & temp files ----
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# ---- IDE / editor settings ----
+# PyCharm (this project uses .idea/)
+.idea/
+*.iml
+# VS Code
+.vscode/
+
+# ---- OS-generated files ----
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+# macOS
+.DS_Store
