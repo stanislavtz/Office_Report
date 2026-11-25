@@ -1,5 +1,6 @@
 import os
 import polars as pl
+import matplotlib.pyplot as plt
 
 # Read files and add them to one main table
 files = os.listdir("../sales")
@@ -28,3 +29,26 @@ products_revenue = (main_table.select(["Product", "Units", "Revenue"])
 
 print(regions_revenue)
 print(products_revenue)
+
+# Implement bar chart based on the Regions and Revenues
+regions = regions_revenue["Region"].to_list()
+revenues = regions_revenue["Revenue"].to_list()
+
+fig, ax = plt.subplots(figsize=(7, 5))
+bars = ax.bar(regions, revenues, color="#2F6690", width=0.6)
+
+# Shows value label on top of the bars
+ax.bar_label(bars, fmt="{:,.0f}", padding=3)
+
+ax.set_title("Revenue by Region")
+ax.set_xlabel("Region")
+ax.set_ylabel("Revenue")
+ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: f"{v:,.0f}"))
+
+# Quieter styling: no top/right frame, light horizontal grid behind the bars
+ax.spines[["top", "right"]].set_visible(False)
+ax.grid(axis="y", color="#DDDDDD", linewidth=0.8)
+ax.set_axisbelow(True)
+
+plt.tight_layout()
+plt.show()
