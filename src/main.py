@@ -3,6 +3,7 @@ import polars as pl
 import matplotlib.pyplot as plt
 from fpdf import FPDF
 from datetime import datetime
+from email_send import send_report
 
 
 def create_table(pdf, df):
@@ -126,3 +127,5 @@ create_table(pdf, products_revenue)
 
 pdf_path = f"{OUTPUT_PATH}/revenue_report.pdf"
 pdf.output(pdf_path)
+
+send_report(pdf_path)
