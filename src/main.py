@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 
 # Read files and add them to one main table
 files = os.listdir("../sales")
+files = [f for f in files if  "~$" not in f]
+files = [f for f in files if f.endswith(".xlsx")]
 
 tables = []
 for file in files:
