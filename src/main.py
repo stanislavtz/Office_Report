@@ -5,6 +5,9 @@ from fpdf import FPDF
 from datetime import datetime
 from email_send import send_report
 
+OUTPUT_PATH = "../outputs"
+CHART_PATH = f"{OUTPUT_PATH}/regions_revenue_chart.png"
+
 
 def create_table(pdf, df):
     with pdf.table(text_align=("LEFT", "RIGHT", "RIGHT")) as table:
@@ -22,9 +25,6 @@ def create_table(pdf, df):
                 else:
                     pdf_row.cell(f"{value}")
 
-
-OUTPUT_PATH = "../outputs"
-CHART_PATH = f"{OUTPUT_PATH}/regions_revenue_chart.png"
 
 # Read files and add them to one main table
 files = os.listdir("../sales")

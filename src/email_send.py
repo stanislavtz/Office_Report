@@ -4,14 +4,14 @@ from email.message import EmailMessage
 
 from dotenv import load_dotenv
 
-load_dotenv()
-
 SENDER = os.getenv("REPORT_SENDER")
 RECIPIENT = os.getenv("REPORT_RECIPIENT")
 SMTP_HOST = os.getenv("SMTP_HOST")
 SMTP_PORT = 465
 SMTP_USER = os.getenv("SMTP_USER")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+
+load_dotenv()
 
 def send_report(pdf_path: str) -> None:
     msg = EmailMessage()
