@@ -16,7 +16,10 @@ def create_table(pdf, df):
         for row in df.iter_rows():
             pdf_row = table.row()
             for value in row:
-                pdf_row.cell(str(value))
+                if isinstance(value, float):
+                    pdf_row.cell(f"{value:,.2f}")
+                else:
+                    pdf_row.cell(f"{value}")
 
 
 OUTPUT_PATH = "../outputs"
