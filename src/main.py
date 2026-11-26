@@ -1,6 +1,7 @@
 import os
 import polars as pl
 import matplotlib.pyplot as plt
+from polars.datatypes import FloatType
 
 # Read files and add them to one main table
 files = os.listdir("../sales")
@@ -20,13 +21,17 @@ main_table = main_table.with_columns(Revenue=(main_table["Units"] * main_table["
 # Build Revenue table by Regions
 regions_revenue = (main_table.select(["Region", "Units", "Revenue"])
                    .group_by("Region")
-                   .agg(pl.col("Units", "Revenue").sum())
+                   .agg(
+                        pl.col("Units").sum(),
+                        pl.col("Revenue").sum().cast(pl.Float64))
                    .sort("Revenue", descending=True))
 
 # Build Revenue table by Products
 products_revenue = (main_table.select(["Product", "Units", "Revenue"])
                     .group_by("Product")
-                    .agg(pl.col("Units", "Revenue").sum())
+                    .agg(
+                        pl.col("Units").sum(),
+                        pl.col("Revenue").sum().cast(pl.Float64))
                     .sort("Revenue", descending=True))
 
 print(regions_revenue)
@@ -40,7 +45,7 @@ fig, ax = plt.subplots(figsize=(7, 5))
 bars = ax.bar(regions, revenues, color="#2F6690", width=0.6)
 
 # Shows value label on top of the bars
-ax.bar_label(bars, fmt="{:,.0f}", padding=3)
+ax.bar_label(bars, fmt="{:,.2f}", padding=3)
 
 ax.set_title("Revenue by Region")
 ax.set_xlabel("Region")
