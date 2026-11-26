@@ -1,6 +1,8 @@
 import os
 import polars as pl
 import matplotlib.pyplot as plt
+from fpdf import FPDF
+from datetime import datetime
 
 OUTPUT_PATH = "../outputs"
 
@@ -60,4 +62,26 @@ ax.set_axisbelow(True)
 
 plt.tight_layout()
 plt.savefig(f"{OUTPUT_PATH}/regions_revenue_chart.png")
-plt.show()
+
+# Create pdf page and put tables and chart in it
+pdf = FPDF()
+pdf.add_page()
+
+pdf.set_font("Helvetica", size=18, style="B")
+
+start_date = main_table["Date"].min()
+end_date = main_table["Date"].max()
+
+start = start_date.strftime("%d %b")
+end = end_date.strftime("%d %b %Y")
+
+title = f"Revenue Report from {start} to {end}"
+pdf.cell(50, 10, title, new_x="LMARGIN", new_y="NEXT")
+
+pdf.set_font("Helvetica", size=12)
+creation_date = datetime.now().strftime("%d %b %Y")
+
+subtitle = f"Created on {creation_date}."
+pdf.cell(text=subtitle)
+
+pdf.output(f"{OUTPUT_PATH}/revenue_report.pdf")
