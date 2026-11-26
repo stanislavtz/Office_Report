@@ -23,6 +23,7 @@ def create_table(pdf, df):
 
 
 OUTPUT_PATH = "../outputs"
+CHART_PATH = f"{OUTPUT_PATH}/regions_revenue_chart.png"
 
 # Read files and add them to one main table
 files = os.listdir("../sales")
@@ -76,7 +77,7 @@ ax.grid(axis="y", color="#DDDDDD", linewidth=0.8)
 ax.set_axisbelow(True)
 
 plt.tight_layout()
-plt.savefig(f"{OUTPUT_PATH}/regions_revenue_chart.png")
+plt.savefig(CHART_PATH)
 
 # Create pdf page and put tables and chart in it
 pdf = FPDF()
@@ -113,8 +114,7 @@ pdf.ln(10)
 # Create Revenue Chart with title
 pdf.set_font(style="B")
 pdf.cell(text="Revenue chart for the period", new_x="LMARGIN", new_y="NEXT")
-file_path = f"{OUTPUT_PATH}/regions_revenue_chart.png"
-pdf.image(file_path, w=150, h=100)
+pdf.image(CHART_PATH, w=150, h=100)
 pdf.ln(10)
 
 # Create Revenue by Products table with title
@@ -124,4 +124,5 @@ pdf.ln(2)
 pdf.set_font(style="")
 create_table(pdf, products_revenue)
 
-pdf.output(f"{OUTPUT_PATH}/revenue_report.pdf")
+pdf_path = f"{OUTPUT_PATH}/revenue_report.pdf"
+pdf.output(pdf_path)
