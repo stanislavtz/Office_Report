@@ -1,7 +1,8 @@
 import os
 import polars as pl
 import matplotlib.pyplot as plt
-from polars.datatypes import FloatType
+
+OUTPUT_PATH = "../outputs"
 
 # Read files and add them to one main table
 files = os.listdir("../sales")
@@ -58,4 +59,5 @@ ax.grid(axis="y", color="#DDDDDD", linewidth=0.8)
 ax.set_axisbelow(True)
 
 plt.tight_layout()
+plt.savefig(f"{OUTPUT_PATH}/regions_revenue_chart.png")
 plt.show()
